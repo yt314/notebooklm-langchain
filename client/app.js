@@ -110,6 +110,28 @@ async function uploadFile(file) {
   await loadSources();
 }
 
+async function webSearch() {
+  const query = $("web-query").value.trim();
+  if (!query) return;
+  const btn = $("web-search-btn");
+  const status = $("web-search-status");
+  btn.disabled = true;
+  status.classList.remove("hidden");
+  status.textContent = "Searching the web and reading sources… this can take a minute.";
+  try {
+    const added = await api.send("POST", "/api/sources/web-search", { query });
+    status.textContent = added.length
+      ? `Added ${added.length} source(s): ${added.map((s) => s.name).join(", ")}`
+      : "No good sources found for that query.";
+    $("web-query").value = "";
+    await loadSources();
+  } catch (e) {
+    status.textContent = `⚠ ${e.message}`;
+  } finally {
+    btn.disabled = false;
+  }
+}
+
 async function selectAll(checked) {
   await Promise.all(
     state.sources
@@ -268,6 +290,7 @@ $("add-toggle").onclick = () => $("add-form").classList.toggle("hidden");
 $("add-cancel").onclick = () => $("add-form").classList.add("hidden");
 $("add-form").addEventListener("submit", addText);
 $("add-file").onchange = (e) => e.target.files[0] && uploadFile(e.target.files[0]);
+$("web-search-btn").onclick = webSearch;
 $("select-all").onchange = (e) => selectAll(e.target.checked);
 
 $("chat-form").addEventListener("submit", (e) => {

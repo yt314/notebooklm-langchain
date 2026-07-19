@@ -42,6 +42,12 @@ class SetActiveRequest(BaseModel):
     active: bool
 
 
+class WebSearchRequest(BaseModel):
+    """Add sources by researching a topic on the web (search + scrape + index)."""
+
+    query: str
+
+
 # -- chat ----------------------------------------------------------------------
 
 

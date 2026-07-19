@@ -10,6 +10,7 @@ Endpoints
         GET    /api/sources/{id}         view full content
         PATCH  /api/sources/{id}         toggle active
         DELETE /api/sources/{id}         remove
+        POST   /api/sources/web-search   add (deep web research: search + scrape + index)
     Chat
         POST   /api/chat                 grounded chat (engine + impl A/B)
     Studio
@@ -44,6 +45,7 @@ from api.schemas import (
     SetActiveRequest,
     SourceDetail,
     SourceInfo,
+    WebSearchRequest,
 )
 
 app = FastAPI(title="NotebookLM (LangChain learning project)")
@@ -115,6 +117,13 @@ def delete_source(source_id: str) -> dict[str, bool]:
     if not services.remove_source(source_id):
         raise HTTPException(status_code=404, detail="Source not found.")
     return {"ok": True}
+
+
+@app.post("/api/sources/web-search", response_model=list[SourceInfo])
+def web_search_sources(req: WebSearchRequest) -> list[SourceInfo]:
+    if not req.query.strip():
+        raise HTTPException(status_code=400, detail="Query is empty.")
+    return services.web_search_sources(req.query)
 
 
 # -- chat ----------------------------------------------------------------------

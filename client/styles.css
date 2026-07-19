@@ -67,6 +67,9 @@ body {
 }
 .add-form input:focus, .add-form textarea:focus { outline: none; border-color: var(--accent); }
 .add-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.add-divider { text-align: center; font-size: 11px; color: var(--muted); margin: 2px 0; }
+.web-search-row { display: flex; gap: 8px; }
+.web-search-row input { flex: 1; }
 
 /* sources list */
 .select-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 16px 8px; font-size: 12px; }

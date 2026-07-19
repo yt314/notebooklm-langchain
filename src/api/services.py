@@ -18,7 +18,7 @@ from api.schemas import (
     SourceDetail,
     SourceInfo,
 )
-from agents import chat
+from agents import chat, research
 from core.store import store
 
 
@@ -64,6 +64,12 @@ def set_source_active(source_id: str, active: bool) -> SourceInfo | None:
 
 def remove_source(source_id: str) -> bool:
     return store.remove(source_id)
+
+
+def web_search_sources(query: str) -> list[SourceInfo]:
+    """Deep-research a topic on the web and add whatever good sources the agent finds."""
+    sources = research.research(query)
+    return [_to_info(s) for s in sources]
 
 
 def _auto_name(content: str) -> str:
