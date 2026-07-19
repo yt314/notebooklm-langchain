@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NotebookLM</title>
+    <link rel="stylesheet" href="/styles.css?v=4" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">📓 <strong>NotebookLM</strong> <span class="muted">· Acme Robotics</span></div>
+    </header>
+
+    <main class="layout">
+      <!-- SOURCES ------------------------------------------------------------>
+      <aside class="panel sources">
+        <div class="panel-head">
+          <h2>Sources</h2>
+          <button id="add-toggle" class="pill-btn">+ Add</button>
+        </div>
+
+        <form id="add-form" class="add-form hidden">
+          <input id="add-name" type="text" placeholder="Title (optional)" />
+          <textarea id="add-content" rows="4" placeholder="Paste source text…"></textarea>
+          <div class="add-actions">
+            <button type="submit" class="pill-btn primary">Add text</button>
+            <label class="pill-btn file">
+              Upload<input id="add-file" type="file" accept=".md,.txt,text/*" hidden />
+            </label>
+            <button type="button" id="add-cancel" class="pill-btn">Cancel</button>
+          </div>
+        </form>
+
+        <div class="select-row">
+          <label><input type="checkbox" id="select-all" /> Select all</label>
+          <span id="active-count" class="muted"></span>
+        </div>
+
+        <ul id="sources" class="source-list"></ul>
+      </aside>
+
+      <!-- CHAT --------------------------------------------------------------->
+      <section class="panel chat">
+        <div class="panel-head">
+          <h2>Chat</h2>
+          <button id="new-chat" class="pill-btn">New chat</button>
+        </div>
+        <div id="messages" class="messages"></div>
+        <form id="chat-form" class="composer">
+          <input id="chat-input" type="text" autocomplete="off"
+                 placeholder="Ask about your sources…" />
+          <button type="submit" id="send">➤</button>
+        </form>
+      </section>
+
+      <!-- STUDIO ------------------------------------------------------------->
+      <aside class="panel studio">
+        <div class="panel-head"><h2>Studio</h2></div>
+        <p class="muted small">Generate grounded artifacts from your sources.</p>
+        <div id="artifacts" class="artifact-grid"></div>
+        <div class="panel-head"><h2>Notes</h2></div>
+        <ul id="notes" class="note-list"></ul>
+      </aside>
+    </main>
+
+    <!-- SOURCE / NOTE VIEWER MODAL ------------------------------------------>
+    <div id="viewer" class="modal hidden">
+      <div class="modal-card">
+        <div class="modal-head">
+          <h3 id="viewer-title">Source</h3>
+          <button id="close-viewer" class="ghost-btn">✕</button>
+        </div>
+        <pre id="viewer-content" class="viewer-content"></pre>
+      </div>
+    </div>
+
+    <div id="overlay" class="overlay hidden"></div>
+
+    <script src="/app.js?v=4"></script>
+  </body>
+</html>
