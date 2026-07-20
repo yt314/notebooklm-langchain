@@ -103,7 +103,7 @@ Useful for checking that the agent talks to the LLM correctly, independent of th
 | Retrieval (grounded Q&A, semantic search) | ✅ done — `core/store.py`, `core/sources.py` |
 | Agent + tools (`search_sources`, `list_sources`, `get_source`) | ✅ done — `agents/chat.py` |
 | Short-term memory (checkpointer + `thread_id`) | ✅ done |
-| Web search sources (Firecrawl: search + scrape + deep research) | ✅ done — `agents/research.py` |
+| Web search sources (Firecrawl: search + scrape + crawl tools, deep research) | ✅ done — `agents/research.py` |
 | Structured output (Studio artifacts) | ⏳ planned |
 | Event streaming | ⏳ planned |
 | Human in the loop | ⏳ planned |
